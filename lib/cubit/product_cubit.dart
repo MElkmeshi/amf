@@ -17,8 +17,9 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Future<void> deletePro(int id, BuildContext context) async {
-    apiService.deleteProduct(id);
+    await apiService.deleteProduct(id);
     emit(ProductDeleted());
+    if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Product deleted successfully')));
     Navigator.pop(context);
