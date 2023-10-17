@@ -88,6 +88,8 @@ class WebService {
     }
   }
 
+
+
   Future<File?> selectImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);

@@ -28,7 +28,8 @@ class ProductCubit extends Cubit<ProductState> {
   Future<void> updatePro(Product upDate, BuildContext context, int id) async {
     apiService.updateProduct(upDate, id);
     emit(ProductUpdated());
-    Navigator.of(context).pop();
+    Navigator.pop(context);
+
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Product Updated ')));
   }
@@ -36,8 +37,10 @@ class ProductCubit extends Cubit<ProductState> {
   Future<void> addProduct(Product addPro, BuildContext context) async {
     await apiService.addProduct(addPro);
     emit(ProductAdded());
+
     if (!context.mounted) return;
-    Navigator.of(context).pop();
+    Navigator.pop(context);
+
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Product Added ')));
   }

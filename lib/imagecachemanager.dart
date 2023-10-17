@@ -17,22 +17,34 @@ class ImageCacheManager {
       return _imageCache[url]!;
     } else {
       var image = CachedNetworkImage(
-        // placeholder: 'assets/images/loading.gif',
-        // width: double.infinity,
-        // height: double.infinity,
-        // image: url,
-        // fit: BoxFit.cover,
         imageUrl: url,
         fit: BoxFit.cover,
         width: double.infinity,
         height: double.infinity,
-        placeholder: (context, url) => Center(
-          child: Container(),
-        ),
+        placeholder: (context, url) =>
+            Center(
+              child: Container(),
+            ),
         errorWidget: (context, url, error) => const Icon(Icons.error),
       );
       _imageCache[url] = image;
       return image;
     }
   }
+
+  void removeImage(String url) {
+      var image = CachedNetworkImage(
+        imageUrl: url,
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
+        placeholder: (context, url) =>
+            Center(
+              child: Container(),
+            ),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      );
+      _imageCache[url] = image;
+  }
+
 }
