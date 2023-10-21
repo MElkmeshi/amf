@@ -7,6 +7,35 @@ import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 
 class WebService {
+
+  Future<Product> changeImage(  Product product, int id) async {
+    final response = await http.put(
+      Uri.parse('https://api.example.com/users/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'imageUrl': product.pictureLink!,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return Product.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load user');
+    }
+  }
+
+  Future<Product> getById(int id)async{
+    Response response = await http.get(Uri.parse('https://alwadq.ly/api/v1/amf/${id}'));
+    if (response.statusCode == 200) {
+      return Product.fromJson(jsonDecode(response.body));
+
+    } else {
+      throw Exception('Failed to fetch Product');
+    }
+
+  }
   Future<List<Product>> fetchList() async {
     var url = 'https://alwadq.ly/api/v1/amf';
     Response response = await http.get(Uri.parse(url));

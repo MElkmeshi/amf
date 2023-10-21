@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:amf/cubit/product_cubit.dart';
 import 'package:amf/data/models/product.dart';
+import 'package:amf/data/webserviecs/webservice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProduct extends StatefulWidget {
   final Product product;
@@ -20,6 +24,18 @@ class _EditProductState extends State<EditProduct> {
     super.initState();
     _product = widget.product;
   }
+ /* final ImagePicker _picker = ImagePicker();
+  late String? _imageUrl;
+
+  Future<void> _changeImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      final String base64Image = base64Encode(await pickedFile.readAsBytes());
+       _imageUrl= 'data:image/png;base64,$base64Image';
+      WebService().changeImage(_imageUrl!, _product.id!); // Replace 1 with the actual user ID
+    }
+  }*/
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +49,7 @@ class _EditProductState extends State<EditProduct> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -44,8 +61,9 @@ class _EditProductState extends State<EditProduct> {
           elevation: 0,
           backgroundColor: Colors.white,
           leading: BackButton(
+            color: Colors.black,
             onPressed: () {
-              Navigator.pop(context);
+               Navigator.of(context).pop();
             },
           ),
         ),
@@ -212,12 +230,23 @@ class _EditProductState extends State<EditProduct> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
+   /*                 Column(
+                      children: [
+                        TextButton(onPressed: (){
+                          _changeImage();
+                        }, child: Text('Edit Image',style: TextStyle(color: Colors.black,fontSize: 15),)),
+                        if(_product.pictureLink != null)
+                          Image.network('${_product.pictureLink}')
+
+                      ],
+                    ),
+                    SizedBox(height: 10,),*/
                     ElevatedButton(
                       onPressed: () {
-                        AlertDialog alertDialog = AlertDialog(
+                        AlertDialog alertDialog = const AlertDialog(
                           backgroundColor: Colors.transparent,
                           elevation: 0,
                           content: Center(
@@ -254,10 +283,10 @@ class _EditProductState extends State<EditProduct> {
                             .updatePro(editedProduct, context, _product.id!);
                         editedProduct.id = _product.id;
                         editedProduct.pictureLink = _product.pictureLink;
-                        setState(() {
-                          _product = editedProduct;
-                        });
-                        Navigator.pop(context);
+                          setState(() {
+                            _product = editedProduct;
+                          });
+
                       },
                       style: ButtonStyle(
                           backgroundColor:
@@ -278,5 +307,7 @@ class _EditProductState extends State<EditProduct> {
             ],
           ),
         ));
+
   }
+
 }

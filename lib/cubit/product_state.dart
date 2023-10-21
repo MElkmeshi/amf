@@ -16,3 +16,9 @@ class ProductDeleted extends ProductState {}
 class ProductUpdated extends ProductState {}
 
 class ProductAdded extends ProductState {}
+class OneProductAdded extends ProductState {
+  final Product product;
+
+  OneProductAdded(this.product);
+}
+

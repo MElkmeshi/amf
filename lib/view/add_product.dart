@@ -222,12 +222,23 @@ class _AddProductState extends State<AddProduct> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      AlertDialog alertDialog = AlertDialog(
-                        backgroundColor: Colors.transparent,
+                      AlertDialog alertDialog = const AlertDialog(
+                        backgroundColor: Colors.black54,
                         elevation: 0,
-                        content: Center(
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                        content: SizedBox(
+                          height: 70,
+                          width: 40,
+                          child: Center(
+                            child: Column(
+                              children: [
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                ),
+                                SizedBox(height: 10,),
+                                Text('Adding Product ...',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
+
+                              ],
+                            ),
                           ),
                         ),
                       );

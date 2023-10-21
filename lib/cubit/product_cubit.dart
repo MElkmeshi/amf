@@ -44,4 +44,9 @@ class ProductCubit extends Cubit<ProductState> {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Product Added ')));
   }
+  Future<void> fetchProduct(int id) async {
+    final product = await apiService.getById(id);
+    emit(OneProductAdded(product));
+  }
+
 }
